@@ -1,0 +1,10 @@
+name = "carbon-aware-site-worker"
+main = "src/index.js"
+compatibility_date = "2022-12-18"
+account_id=""
+
+# Create a namespace if you want to cache grid intensity API results.
+# The cached results are stored in Cloudflare Workers KV.
+kv_namespaces = [
+  { binding = "ELECMAPS_CACHE", id = "", preview_id = "" }
+]
