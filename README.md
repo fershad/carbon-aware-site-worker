@@ -6,6 +6,8 @@ The concept of a carbon-aware website is one where the content/user experience o
 
 This repository contains a Cloudflare Workers starter template that can be used to make a website carbon-aware. It is a very bare bones implementation, and is designed to serve as a launching pad, from which developers can begin to play around with the idea of carbon awareness on their own sites or apps.
 
+You can read more about this at: [https://fershad.com/carbon-aware-site/](https://fershad.com/carbon-aware-site/)
+
 ## Getting started
 
 To start working with the code, clone this repository & run `npm install` in your console.
