@@ -97,6 +97,9 @@ export default {
       }
 
       // Check to see if there is cached grid intensity data for the user's country.
+	//   This data is stored in a KV namespace called ELECMAPS_CACHE.
+	// You can setup a KV namespace from the web UI or using Wrangler.
+	// https://developers.cloudflare.com/workers/wrangler/commands/#kvnamespace
       const value = await env.ELECMAPS_CACHE.get(country, {
         type: "json",
       });
