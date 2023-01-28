@@ -109,6 +109,9 @@ export default {
 				const data = await fetch(
 					`https://api.co2signal.com/v1/latest?lon=${lon}&lat=${lat}`, {
 						headers: {
+							// You'll need to set the CO2SIGNAL_TOKEN environment variable to your API key.
+							// The best way to do this is by using Wrangler's secret feature. 
+							// https://developers.cloudflare.com/workers/wrangler/commands/#secret
 							"auth-token": env.CO2SIGNAL_TOKEN,
 						},
 					}
