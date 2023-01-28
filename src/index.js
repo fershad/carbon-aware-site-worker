@@ -1,3 +1,4 @@
+import { parse } from "cookie";
 let carbonAwareCookie;
 
 // Set the threshold for the grid intensity. A value below this threshold will not have any changes made to the HTML.
