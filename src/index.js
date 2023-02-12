@@ -1,8 +1,8 @@
 import { parse } from "cookie";
-let carbonAwareCookie;
+import { codes } from '../helpers/countryCodes';
+import { averageIntensity } from '@tgwf/co2';
 
-// Set the threshold for the grid intensity. A value below this threshold will not have any changes made to the HTML.
-const gridIntensityThreshold = 221;
+let carbonAwareCookie;
 
 // A class to add a data attribute to the body tag when a page has had changes made to it.
 class addDataAttribute {
@@ -30,16 +30,30 @@ const fallback = async (res, message) => {
   return response;
 };
 
+// map 2-digit country code to 3-digit equivalent
+const findCountryCode = (twoChar) => {
+	return codes.find(code => code.alpha2Code === twoChar)?.alpha3Code
+}
+
+// Get the averages intensity for the country using CO2.js
+const getAverageIntensity = (country) => {
+	return averageIntensity.data[country] || averageIntensity.data["World"];
+}
+
 // A function to check the carbon intensity and return the response with the appropriate changes.
 const checkCarbonIntensity = async (res, data) => {
+  const countryCode = findCountryCode(data.countryCode)
+	const averageIntensity = getAverageIntensity(countryCode)
+
   try {
     // If the carbon intensity is below the threshold, return the original page.
-    if (data.data.carbonIntensity < gridIntensityThreshold) {
+    if (data.data.carbonIntensity < averageIntensity) {
       return new Response(res.body, {
         ...res,
         headers: {
           "carbon-aware-intensity": data.data.carbonIntensity,
           "carbon-aware-location": data.countryCode,
+          'carbon-aware-location-average': averageIntensity,
         },
       });
     } else {
@@ -49,6 +63,7 @@ const checkCarbonIntensity = async (res, data) => {
         headers: {
           "carbon-aware-intensity": data.data.carbonIntensity,
           "carbon-aware-location": data.countryCode,
+          'carbon-aware-location-average': averageIntensity,
         },
       });
 
