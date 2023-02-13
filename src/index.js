@@ -32,7 +32,57 @@ const fallback = async (res, message) => {
 
 // map 2-digit country code to 3-digit equivalent
 const findCountryCode = (twoChar) => {
-	return codes.find(code => code.alpha2Code === twoChar)?.alpha3Code
+	let countryCode = twoChar;
+
+	if (twoChar.startsWith('AU-')) {
+		countryCode = 'AU'
+	} else if (twoChar.startsWith('BR-')) {
+		countryCode = 'BR'
+	} else if (twoChar.startsWith('CA-')) {
+		countryCode = 'CA'
+	} else if (twoChar.startsWith('CL-')) {
+		countryCode = 'CL'
+	} else if (twoChar.startsWith('DK-')) {
+		countryCode = 'DK'
+	} else if (twoChar.startsWith('ES-')) {
+		countryCode = 'ES'
+	} else if (twoChar.startsWith('FO-')) {
+		countryCode = 'FO'
+	} else if (twoChar.startsWith('FR-')) {
+		countryCode = 'FR'
+	} else if (twoChar.startsWith('GB-')) {
+		countryCode = 'GB'
+	} else if (twoChar.startsWith('GR-')) {
+		countryCode = 'GR'
+	} else if (twoChar.startsWith('IN-')) {
+		countryCode = 'IN'
+	} else if (twoChar.startsWith('IT-')) {
+		countryCode = 'IT'
+	} else if (twoChar.startsWith('IQ-')) {
+		countryCode = 'IQ'
+	} else if (twoChar.startsWith('JP-')) {
+		countryCode = 'JP'
+	} else if (twoChar.startsWith('MX-')) {
+		countryCode = 'MX'
+	} else if (twoChar.startsWith('MY-')) {
+		countryCode = 'MY'
+	} else if (twoChar.startsWith('NO-')) {
+		countryCode = 'NO'
+	} else if (twoChar.startsWith('NZ-')) {
+		countryCode = 'NZ'
+	} else if (twoChar.startsWith('PT-')) {
+		countryCode = 'PT'
+	} else if (twoChar.startsWith('RU-')) {
+		countryCode = 'RU'
+	} else if (twoChar.startsWith('SE-')) {
+		countryCode = 'SE'
+	} else if (twoChar.startsWith('UA-')) {
+		countryCode = 'UA'
+	} else if (twoChar.startsWith('US-')) {
+		countryCode = 'US'
+	}
+
+	return codes.find(code => code.alpha2Code === countryCode)?.alpha3Code
 }
 
 // Get the averages intensity for the country using CO2.js
