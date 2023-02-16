@@ -31,9 +31,15 @@ const fallback = async (res, message) => {
 };
 
 // map 2-digit country code to 3-digit equivalent
-const findCountryCode = (twoChar) => {
+const findCountryCode = (res, twoChar) => {
+
+	if (!twoChar) {
+		return fallback(res, "Error parsing data")
+	}
+
 	let countryCode = twoChar;
 
+if (twoChar.length > 2) {
 	if (twoChar.startsWith('AU-')) {
 		countryCode = 'AU'
 	} else if (twoChar.startsWith('BR-')) {
@@ -81,6 +87,7 @@ const findCountryCode = (twoChar) => {
 	} else if (twoChar.startsWith('US-')) {
 		countryCode = 'US'
 	}
+}
 
 	return codes.find(code => code.alpha2Code === countryCode)?.alpha3Code
 }
@@ -92,7 +99,7 @@ const getAverageIntensity = (country) => {
 
 // A function to check the carbon intensity and return the response with the appropriate changes.
 const checkCarbonIntensity = async (res, data) => {
-  const countryCode = findCountryCode(data.countryCode)
+  const countryCode = findCountryCode(res, data.countryCode)
 	const averageIntensity = getAverageIntensity(countryCode)
 
   try {
